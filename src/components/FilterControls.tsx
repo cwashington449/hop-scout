@@ -1,4 +1,4 @@
-import { Beer, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
 const BREWERY_TYPES = [
@@ -43,16 +43,15 @@ export default function FilterControls({ selectedTypes, onTypeChange }: FilterCo
   };
 
   return (
-    <div className="flex items-center gap-4 mb-6">
-      <span className="text-gray-600 flex items-center gap-2">
-        <Beer size={18} />
+    <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+      <span className="text-gray-600 whitespace-nowrap">
         Filter by type:
       </span>
       
-      <div className="relative" ref={dropdownRef}>
+      <div className="relative flex-1" ref={dropdownRef}>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+          className="w-full sm:w-auto flex items-center justify-between gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
         >
           <span className="text-gray-700">
             {selectedTypes.length === 0
@@ -86,7 +85,7 @@ export default function FilterControls({ selectedTypes, onTypeChange }: FilterCo
                   type="checkbox"
                   checked={selectedTypes.includes(type)}
                   onChange={() => handleTypeToggle(type)}
-                  className="w-4 h-4 text-amber-500 border-gray-300 rounded focus:ring-amber-500"
+                  className="w-4 h-4 text-gray-600 border-gray-300 rounded focus:ring-gray-500"
                 />
                 <span className="ml-3 text-gray-700 capitalize">{type}</span>
               </label>

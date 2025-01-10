@@ -19,7 +19,7 @@ export default function Suggestions({ suggestions, onSelect, visible }: Suggesti
               onClick={() => onSelect(city)}
               className="w-full px-4 py-3 text-left flex items-center gap-2 hover:bg-gray-50 transition-colors"
             >
-              <MapPin size={18} className="text-amber-500" />
+              <MapPin size={18} className="text-green-600" />
               <span>{city}</span>
             </button>
           </li>

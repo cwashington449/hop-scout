@@ -11,14 +11,14 @@ import { useNavigate } from 'react-router-dom';
 
 const LOADING_STATE = (
   <div className="flex items-center justify-center min-h-screen">
-    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-500" />
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600" />
   </div>
 );
 
 const ERROR_STATE = (
   <div className="text-center py-12">
     <p className="text-red-600">Error loading brewery details.</p>
-    <Link to="/" className="text-amber-500 hover:text-amber-600 mt-4 inline-block">
+    <Link to="/" className="text-green-600 hover:text-green-700 mt-4 inline-block">
       Return to home
     </Link>
   </div>
@@ -68,7 +68,7 @@ export default function BreweryDetail() {
             />
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6">
               <h1 className="text-4xl font-bold text-white">{brewery.name}</h1>
-              <div className="inline-block bg-amber-500 text-white px-3 py-1 rounded-full text-sm font-medium mt-2">
+              <div className="inline-block bg-green-600 text-white px-3 py-1 rounded-full text-sm font-medium mt-2">
                 {brewery.brewery_type}
               </div>
             </div>
@@ -80,26 +80,26 @@ export default function BreweryDetail() {
                 <h2 className="text-2xl font-bold mb-4">Location & Contact</h2>
                 <div className="space-y-4">
                   <div className="flex items-center">
-                    <MapPin className="text-amber-500 mr-3" size={24} />
+                    <MapPin className="text-green-600 mr-3" size={24} />
                     <span>{address}
                     </span>
                   </div>
                   
                   {brewery.phone && (
                     <div className="flex items-center">
-                      <Phone className="text-amber-500 mr-3" size={24} />
+                      <Phone className="text-green-600 mr-3" size={24} />
                       <span>{brewery.phone}</span>
                     </div>
                   )}
 
                   {brewery.website_url && (
                     <div className="flex items-center">
-                      <Globe className="text-amber-500 mr-3" size={24} />
+                      <Globe className="text-green-600 mr-3" size={24} />
                       <a 
                         href={brewery.website_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-amber-500 hover:text-amber-600"
+                        className="text-green-600 hover:text-green-700"
                       >
                         Visit Website
                       </a>

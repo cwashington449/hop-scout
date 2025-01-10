@@ -78,7 +78,7 @@ export default function Home() {
           onSearch={setSearchCity}
         />
       ) : (
-        <Hero onSearch={setSearchCity} />
+        <Hero onSearch={setSearchCity} onReset={handleReset} />
       )}
 
       {!searchCity && <TopCities onCitySelect={setSearchCity} />}
@@ -95,23 +95,27 @@ export default function Home() {
                   <p className="text-gray-600 mt-1">
                     Found {filteredBreweries.length} breweries in your area
                     {selectedTypes.length > 0 && (
-                      <span className="text-amber-500">
+                      <span className="text-green-600">
                         {' '}
                         (Filtered by {selectedTypes.length} type{selectedTypes.length > 1 ? 's' : ''})
                       </span>
                     )}
                   </p>
                 </div>
-
-                <FilterControls
-                  selectedTypes={selectedTypes}
-                  onTypeChange={handleTypeChange}
-                />
-
-                <SortControls
-                  sort={sort}
-                  onSortChange={setSort}
-                />
+                
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-full flex flex-col sm:flex-row sm:items-center gap-4">
+                    <FilterControls
+                      selectedTypes={selectedTypes}
+                      onTypeChange={handleTypeChange}
+                    />
+                    <div className="hidden sm:block w-px h-8 bg-gray-200" />
+                    <SortControls
+                      sort={sort}
+                      onSortChange={setSort}
+                    />
+                  </div>
+                </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {paginatedBreweries.map((brewery) => (
@@ -131,7 +135,7 @@ export default function Home() {
 
             {isLoading && (
               <div className="text-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-500 mx-auto" />
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto" />
               </div>
             )}
 

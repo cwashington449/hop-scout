@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { User } from '@supabase/supabase-js';
+import { User, AuthError } from '@supabase/supabase-js';
 import { supabase } from '../services/supabaseClient';
 
 interface AuthContextType {
@@ -14,6 +14,17 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const handleAuthCallback = async () => {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      if (error) console.error('Error getting session:', error.message);
+      setUser(session?.user ?? null);
+      setIsLoading(false);
+    };
+
+    handleAuthCallback();
+  }, []);
 
   useEffect(() => {
     // Check active sessions and sets the user
@@ -31,16 +42,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signInWithGoogle = async () => {
-    await supabase.auth.signInWithOAuth({
+    // Store the current path for redirect after auth
+    localStorage.setItem('authRedirectPath', window.location.pathname);
+    
+    const redirectUrl = import.meta.env.PROD 
+      ? 'https://hopscout.craftybrothas.com/auth/callback'
+      : `${window.location.origin}/auth/callback`;
+    
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`
+        redirectTo: redirectUrl,
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent'
+        }
       }
     });
+    
+    if (error) {
+      console.error('Error signing in with Google:', error.message);
+    }
   };
 
   const signOut = async () => {
-    await supabase.auth.signOut();
+    try {
+      await supabase.auth.signOut();
+      // Let the auth state change handler handle the redirect
+    } catch (error) {
+      console.error('Error signing out:', (error as AuthError).message);
+    }
   };
 
   return (

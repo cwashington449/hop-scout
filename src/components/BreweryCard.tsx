@@ -14,19 +14,19 @@ const formatAddress = (brewery: Brewery): string =>
 
 export default function BreweryCard({ brewery }: BreweryCardProps) {
   return (
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow h-full flex flex-col">
       <div className="relative h-48">
         <img
           src={getBreweryImage(brewery.brewery_type)}
           alt={brewery.name}
           className="w-full h-full object-cover"
         />
-        <div className="absolute top-4 right-4 bg-amber-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+        <div className="absolute top-4 right-4 bg-gray-700 text-white px-3 py-1 rounded-full text-sm font-medium">
           {brewery.brewery_type}
         </div>
       </div>
       
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-grow">
         <h3 className="text-xl font-bold mb-2">{brewery.name}</h3>
         
         <div className="space-y-2 mb-4">
@@ -43,13 +43,13 @@ export default function BreweryCard({ brewery }: BreweryCardProps) {
           )}
         </div>
 
-        <div className="flex gap-2 mt-4">
+        <div className="flex gap-2 mt-auto pt-4 justify-center">
           {brewery.website_url && (
             <a
               href={brewery.website_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors"
+              className="flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex-1"
             >
               <Globe size={18} className="mr-2" />
               Visit Website
@@ -57,7 +57,7 @@ export default function BreweryCard({ brewery }: BreweryCardProps) {
           )}
           <Link
             to={`/brewery/${brewery.id}`}
-            className="flex items-center px-4 py-2 border border-amber-500 text-amber-500 rounded-lg hover:bg-amber-50 transition-colors"
+            className="flex items-center justify-center px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex-1"
           >
             <Beer size={18} className="mr-2" />
             View Details
